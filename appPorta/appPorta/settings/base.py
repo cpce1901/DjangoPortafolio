@@ -16,11 +16,23 @@ BASE_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = []
 
-THIRD_APPS = []
+LOCAL_APPS = [
+    'apps.core',
+    'apps.services',
+    'apps.contact'
+    'apps.plc',
+    'apps.iot',
+]
+
+
+THIRD_APPS = [
+    'django_htmx',
+]
+
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -30,9 +42,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
+    #Permisos para HTMX
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
+
 ROOT_URLCONF = "appPorta.urls"
+
 
 TEMPLATES = [
     {
@@ -50,7 +67,9 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "appPorta.wsgi.application"
+ASGI_APPLICATION = "appPorta.asgi.application"
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -69,9 +88,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Santiago"
 
 USE_I18N = True
 
