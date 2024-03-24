@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.conf import settings
@@ -31,6 +31,7 @@ url_API = [
 #URLs propias del sitio
 url_BASE = [
     path('admin/', admin.site.urls),
+    path('', include('apps.core.urls')),
 ]
 
 

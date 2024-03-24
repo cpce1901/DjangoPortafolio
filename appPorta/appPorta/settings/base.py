@@ -20,18 +20,19 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.core',
     'apps.services',
-    'apps.contact'
-    'apps.plc',
+    'apps.contact',
+    'apps.posts',
     'apps.iot',
 ]
 
 
 THIRD_APPS = [
+    'daphne',
     'django_htmx',
 ]
 
 
-INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
+INSTALLED_APPS =  LOCAL_APPS + THIRD_APPS + BASE_APPS 
 
 
 MIDDLEWARE = [
@@ -70,6 +71,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "appPorta.wsgi.application"
 ASGI_APPLICATION = "appPorta.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [

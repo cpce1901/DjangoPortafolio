@@ -10,11 +10,15 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 
+<body>
+    {% include 'base/header.html' %}
 
-{% block content %}
+    {% block content %}
 
-<body></body>
+    {% endblock content %}
 
-{% endblock content %}
+</body>
+
+
 
 </html>
