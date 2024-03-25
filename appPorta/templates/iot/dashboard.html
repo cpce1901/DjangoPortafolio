@@ -18,90 +18,17 @@ Dashboard | Portafolio | CpCe
     <div class="container-fluid mx-auto p-1">
         <section class="flex flex-col justify-center gap-6">
 
-            <select name="place" id="place">
+           <form action="{% url 'iot_app:mqtt-dash' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
 
-                <option selected>Open this one</option>
-
-                {% for place in places %}
-
-                <option value="{{ place.pk }}">{{ place.name }}</option>
-
-                {% endfor %}
-            </select>
-
-            <select name="sensor">
-            </select>
-
-            <a href="#" id="goToLink">Ir</a>
-
+            <button type="submit">Send</button>
+           </form>
         </section>
     </div>
 </main>
 
 
-<script>
-    window.onload = function () {
-        document.querySelector('#goToLink').addEventListener('click', function (event) {
-            event.preventDefault(); // Evita que el enlace se comporte como un enlace normal y cause una redirección
 
-            // Obtiene los valores seleccionados de los elementos select
-            const selectedPlace = document.querySelector('select[name="place"]').value;
-            const selectedSensor = document.querySelector('select[name="sensor"]').value;
-
-            if (selectedPlace !== 'Open this one' && selectedSensor !== 'All Sensors') {
-
-                // Construye la URL deseada con los valores seleccionados
-                const url = `/mqtt/${selectedPlace}/${selectedSensor}/`;
-
-                // Redirige al usuario a la URL construida
-                window.location.href = url;
-            } else {
-                alert("Error")
-            }
-
-        });
-
-        document.querySelector('select[name="place"]').addEventListener('click', function () {
-            const selectedPlace = this.value; // Obtén el valor seleccionado del primer select
-            if (selectedPlace != 'Open this one') {
-                socket.send(JSON.stringify({ 'message': selectedPlace })); // Envía el valor seleccionado al servidor
-            }
-        });
-
-
-
-        // Agregar un listener para el evento load
-        window.addEventListener('load', function () {
-            const sensorSelect = document.querySelector('select[name="place"]');
-            sensorSelect.selectedIndex = 0;
-        });
-
-        const socket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/mqtt/dashboard/'
-        );
-
-        socket.onmessage = function (e) {
-            const data = JSON.parse(e.data);
-            const sensorSelect = document.querySelector('select[name="sensor"]');
-            sensorSelect.innerHTML = '<option selected>All Sensors</option>';
-
-            if (Array.isArray(data.message)) {
-                data.message.forEach((element) => {
-                    const option = document.createElement('option');
-                    option.value = element.id;
-                    option.text = element.name;
-                    sensorSelect.add(option);
-                })
-            }
-        };
-
-        socket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-    }
-
-</script>
 
 {% endblock content %}

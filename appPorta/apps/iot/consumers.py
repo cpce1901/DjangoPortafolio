@@ -1,40 +1,9 @@
 from django.conf import settings
 from channels.generic.websocket import AsyncWebsocketConsumer
-from channels.db import database_sync_to_async
 import asyncio
 import json
 import paho.mqtt.client as mqtt
-from .models import Sensor
 
-
-class MqttDashConsumer(AsyncWebsocketConsumer):   
-    
-    async def connect(self):
-        await self.accept()
-        await self.send(text_data=json.dumps({
-            'message': 'Connected'
-        }))
-
-    async def disconnect(self, close_code):
-        await self.send(text_data=json.dumps({
-            'message': 'Disconnected'
-        }))
-
-
-    def get_data(self, id):
-        return list(Sensor.objects.filter(place_id=id).values('id', 'name'))
-
-    async def receive(self, text_data=None, bytes_data=None):
-        text_data_json = json.loads(text_data)
-        selected_place = text_data_json['message'] # Obtén el valor seleccionado del primer select
-
-        datos = await database_sync_to_async(self.get_data)(selected_place)
-
-        await self.send(text_data=json.dumps({
-            'message': datos
-        }))
-
-      
 class MqttConsumer(AsyncWebsocketConsumer):
 
     topic=None

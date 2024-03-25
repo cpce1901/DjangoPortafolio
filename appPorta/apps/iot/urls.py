@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import MqttLogin, MqttLogout, MqttDashboard, MqttRecive
+from .views_htmx import SensorsByPlace
 
 app_name = 'iot_app'
 
@@ -11,3 +12,8 @@ urlpatterns = [
     path('mqtt/<int:place>/<int:sen>/', MqttRecive.as_view(), name='mqtt-place-sen'),
 ]
 
+htmx_urls = [
+    path('sensors/place/', SensorsByPlace, name='mqtt-sensors-place'),
+]
+
+urlpatterns += htmx_urls
