@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+<!-- Carga de archivos estaticos  -->
+{% load static %}
+
+<!-- Carga de titulo  -->
+{% block title %}
+MQTT | Portafolio | CpCe
+{% endblock title %}
+
+<!-- Carga de contenido  -->
+{% block content %}
+
+{% include 'base/header.html' %}
+
+
+<main class="bg-white flex items-center justify-center min-h-screen">
+    <div class="container-fluid mx-auto p-1">
+        <section class="flex justify-center">
+            <form action="{% url 'iot_app:mqtt-login' %}" method="post" class="w-full flex flex-col gap-6 max-w-md">
+                {% csrf_token %}
+
+                <div class="flex flex-col gap-1 mb-6 xl:mb-0">
+                    <label class="font-exo text-base font-semibold text-gray-500">{{ form.username.label }}</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="flex flex-col gap-1 mb-6 xl:mb-0">
+                    <label class="font-exo text-base font-semibold text-gray-500">{{ form.password.label }}</label>
+                    {{ form.password }}
+                </div>
+
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+{% endblock content %}

@@ -32,6 +32,7 @@ url_API = [
 url_BASE = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls')),
+    path('', include('apps.iot.urls')),
 ]
 
 

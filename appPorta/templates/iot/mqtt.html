@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+<!-- Carga de archivos estaticos  -->
+{% load static %}
+
+<!-- Carga de titulo  -->
+{% block title %}
+MQTT | Portafolio | CpCe
+{% endblock title %}
+
+<!-- Carga de contenido  -->
+{% block content %}
+
+{% include 'base/header.html' %}
+
+<main>
+
+    <section>
+
+
+
+    </section>
+
+
+</main>
+
+
+<script>
+    window.onload = function () {
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/mqtt/{{ place }}/{{ sen }}/'
+        );
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            console.log(data);
+        };
+
+        chatSocket.onopen = function (e) {
+            console.log('Conectado a WS');
+        };
+
+    }
+
+</script>
+
+{% endblock content %}

@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "../templates/*/**.html",
+    "../apps/iot/forms.py"
   ],
   theme: {
     extend: {},

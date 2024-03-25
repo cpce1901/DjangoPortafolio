@@ -72,6 +72,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "appPorta.wsgi.application"
 ASGI_APPLICATION = "appPorta.asgi.application"
 
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -108,3 +109,9 @@ USE_TZ = True
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MQTT_BROKER = "146.190.124.66"
+MQTT_PORT = 1883
+MQTT_USERNAME = "SCollege"
+MQTT_PASSWORD = "cpce1901"
+MQTT_ID = "appWeb"
